@@ -32,6 +32,16 @@
 
 ---
 
+## Clarifications
+
+### Session 2025-10-05
+- Q: Data retention period - 30 days? 90 days? User-controlled? → A: 1 year (long-term access, higher storage)
+- Q: Full pipeline completion time - 30s? 1min? 2min? 5min? → A: 2 minutes (allows for thorough processing)
+- Q: Per-module performance targets - strict limits or flexible? → A: No strict per-module limits, just 2min total (flexible allocation)
+- Q: Concurrent user capacity - 10? 100? 1000? 10,000+? → A: 100 users (medium company, standard setup)
+
+---
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### Primary User Story
@@ -108,12 +118,12 @@ The system should handle the entire workflow end-to-end without requiring techni
 #### Privacy & Security
 - **FR-017**: System MUST only access public GitHub data (no private repos or emails)
 - **FR-018**: System MUST isolate user data (users cannot see others' projects)
-- **FR-019**: System MUST delete user data after [NEEDS CLARIFICATION: retention period - 30 days? 90 days? User-controlled?]
+- **FR-019**: System MUST automatically delete user data (projects, candidates, search results) after 1 year of inactivity
 - **FR-020**: System MUST provide data deletion on user request (GDPR right to erasure)
 
 #### Integration & Pipeline
 - **FR-021**: System MUST orchestrate AI modules in sequence: JD Parser → GitHub Sourcer → Ranker → Outreach Generator
-- **FR-022**: System MUST complete full pipeline within [NEEDS CLARIFICATION: acceptable time - 30 seconds? 1 minute? 2 minutes?]
+- **FR-022**: System MUST complete full pipeline (parse → search → rank → outreach) within 2 minutes
 - **FR-023**: System MUST cache GitHub API responses to avoid redundant calls
 - **FR-024**: System MUST respect GitHub API rate limits (5000 req/hour for authenticated users)
 
@@ -219,11 +229,9 @@ The system is composed of **6 independent modules**:
 
 ## Performance Requirements
 
-- **PR-001**: JD parsing must complete in [NEEDS CLARIFICATION: time limit - 2s? 5s?]
-- **PR-002**: GitHub sourcing must complete in [NEEDS CLARIFICATION: time limit - 10s? 30s?]
-- **PR-003**: Ranking must complete in [NEEDS CLARIFICATION: time limit - 5s? 10s?]
-- **PR-004**: Outreach generation must complete in [NEEDS CLARIFICATION: time limit - 10s for how many candidates?]
-- **PR-005**: System must support [NEEDS CLARIFICATION: concurrent users - 10? 100? 1000?]
+- **PR-001**: Full pipeline (all modules combined) must complete within 2 minutes
+- **PR-002**: Individual modules should be optimized but no strict per-module limits (flexible time allocation)
+- **PR-003**: System must support 100 concurrent users (medium company scale)
 
 ---
 
@@ -237,7 +245,7 @@ The system is composed of **6 independent modules**:
 - [x] All mandatory sections completed
 
 ### Requirement Completeness
-- [ ] No [NEEDS CLARIFICATION] markers remain (4 items need clarification)
+- [x] No [NEEDS CLARIFICATION] markers remain (all 4 clarifications completed)
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Scope is clearly bounded
@@ -250,11 +258,11 @@ The system is composed of **6 independent modules**:
 
 - [x] User description parsed
 - [x] Key concepts extracted (actors, actions, data, constraints)
-- [x] Ambiguities marked (4 NEEDS CLARIFICATION items)
+- [x] Ambiguities marked and resolved (4 clarifications completed)
 - [x] User scenarios defined
 - [x] Requirements generated (29 functional requirements)
 - [x] Entities identified (6 entities)
-- [ ] Review checklist passed (warnings: clarifications needed)
+- [x] Review checklist passed (all requirements clear)
 
 ---
 
