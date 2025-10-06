@@ -1,0 +1,91 @@
+You are an expert at extracting structured job requirements from free-text job descriptions.
+
+Extract the following information from the job description below. Return your response as valid JSON matching this schema:
+
+{{
+  "role": "string or null (job title)",
+  "required_skills": ["array of must-have skills"],
+  "preferred_skills": ["array of nice-to-have skills"],
+  "years_of_experience": {{
+    "min": "integer or null",
+    "max": "integer or null",
+    "range_text": "string or null (e.g., '5+ years')"
+  }},
+  "seniority_level": "null or one of: Junior, Mid-level, Senior, Staff, Principal",
+  "location_preferences": ["array of locations or 'Remote'"],
+  "domain": "string or null (industry context)",
+  "confidence_scores": {{
+    "role": {{"score": 0-100, "reasoning": "string"}},
+    "required_skills": {{"score": 0-100, "reasoning": "string"}},
+    "years_of_experience": {{"score": 0-100, "reasoning": "string"}}
+  }}
+}}
+
+EXTRACTION RULES:
+1. **Skills**: Extract technical skills, frameworks, languages. Normalize names (e.g., "js" → "JavaScript", "reactjs" → "React").
+2. **Required vs Preferred**: "Must have", "required", "essential" → required_skills. "Nice to have", "plus", "preferred" → preferred_skills.
+3. **Experience**: Extract years as numbers. If "5+ years", set min=5, max=null, range_text="5+ years".
+4. **Seniority**: Map to exact enum values: Junior, Mid-level, Senior, Staff, or Principal.
+5. **Confidence**: Score 0-100 based on how clearly the info is stated. High=explicit, Low=inferred/ambiguous.
+6. **Domain**: Extract industry context (e.g., "fintech", "healthcare", "e-commerce").
+7. **Minimum Requirement**: Must extract EITHER role OR at least one required_skill. If neither is clear, set low confidence.
+
+FEW-SHOT EXAMPLES:
+
+Example 1:
+Input: "Senior Python Developer with 5+ years experience in fintech. Must know FastAPI and PostgreSQL."
+Output:
+{{
+  "role": "Senior Python Developer",
+  "required_skills": ["Python", "FastAPI", "PostgreSQL"],
+  "preferred_skills": [],
+  "years_of_experience": {{"min": 5, "max": null, "range_text": "5+ years"}},
+  "seniority_level": "Senior",
+  "location_preferences": [],
+  "domain": "Fintech",
+  "confidence_scores": {{
+    "role": {{"score": 95, "reasoning": "Explicitly stated in title"}},
+    "required_skills": {{"score": 90, "reasoning": "Clearly marked as 'must know'"}},
+    "years_of_experience": {{"score": 85, "reasoning": "Explicitly stated as '5+ years'"}}
+  }}
+}}
+
+Example 2:
+Input: "React developer"
+Output:
+{{
+  "role": "React Developer",
+  "required_skills": ["React"],
+  "preferred_skills": [],
+  "years_of_experience": {{"min": null, "max": null, "range_text": null}},
+  "seniority_level": null,
+  "location_preferences": [],
+  "domain": null,
+  "confidence_scores": {{
+    "role": {{"score": 80, "reasoning": "Role inferred from skill mention"}},
+    "required_skills": {{"score": 90, "reasoning": "React explicitly mentioned"}}
+  }}
+}}
+
+Example 3:
+Input: "Looking for developer with some experience"
+Output:
+{{
+  "role": "Developer",
+  "required_skills": [],
+  "preferred_skills": [],
+  "years_of_experience": {{"min": null, "max": null, "range_text": "some experience"}},
+  "seniority_level": null,
+  "location_preferences": [],
+  "domain": null,
+  "confidence_scores": {{
+    "role": {{"score": 60, "reasoning": "Generic role, very vague"}},
+    "years_of_experience": {{"score": 30, "reasoning": "'Some experience' is too ambiguous to quantify"}}
+  }}
+}}
+
+NOW EXTRACT FROM THIS JOB DESCRIPTION:
+
+{job_description}
+
+Return ONLY the JSON object, no markdown formatting or explanation.
