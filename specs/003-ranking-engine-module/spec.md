@@ -2,7 +2,7 @@
 
 **Feature Branch**: `003-ranking-engine-module`
 **Created**: 2025-10-05
-**Status**: Draft
+**Status**: Clarified
 **Input**: User description: "Ranking Engine module that scores and ranks GitHub candidates based on fit to job requirements, calculating skill match percentage, activity level, experience proxy, and domain relevance, returning ranked list with score breakdowns explaining why each candidate matches"
 
 ## Execution Flow (main)
@@ -63,7 +63,7 @@ The module operates as a pure algorithm with no external dependencies.
 
 7. **Given** a candidate with total score of 75, **When** viewing results, **Then** the score breakdown shows: skill match (80), activity (70), experience (75), domain (75)
 
-8. **Given** two candidates with identical total scores, **When** ranking, **Then** they are [NEEDS CLARIFICATION: tie-breaking rule - alphabetical? most recent activity? random?]
+8. **Given** two candidates with identical total scores, **When** ranking, **Then** they are ordered by total GitHub contributions (more active ranked higher)
 
 ### Edge Cases
 
@@ -76,7 +76,7 @@ The module operates as a pure algorithm with no external dependencies.
 - What happens when domain is not specified in JobRequirement?
   - Skip domain scoring, distribute its weight to other factors
 
-- What happens when all candidates score below [NEEDS CLARIFICATION: minimum threshold - 50? 60?]?
+- What happens when all candidates score below 30% threshold?
   - Return all candidates ranked, but flag that none meet minimum quality bar
 
 - What happens when JobRequirement has conflicting data (Junior with 10 years)?
@@ -98,32 +98,35 @@ The module operates as a pure algorithm with no external dependencies.
 - **FR-005**: Module MUST calculate activity score (0-100) based on contribution count and recency
 - **FR-006**: Module MUST calculate experience score (0-100) based on account age, repo maturity, and stars received
 - **FR-007**: Module MUST calculate domain score (0-100) based on similarity between candidate's projects and job domain
-- **FR-008**: Module MUST combine individual scores into total score using weighted formula: [NEEDS CLARIFICATION: weights - equal 25% each? or skill=40%, activity=20%, exp=20%, domain=20%?]
+- **FR-008**: Module MUST combine individual scores into total score using weighted sum (skill_weight × skill_score + exp_weight × exp_score + activity_weight × activity_score + domain_weight × domain_score)
 
 #### Ranking
 - **FR-009**: Module MUST rank candidates by total score in descending order (highest first)
-- **FR-010**: Module MUST handle ties using [NEEDS CLARIFICATION: tie-breaking rule]
-- **FR-011**: Module MUST return top N candidates where N is [NEEDS CLARIFICATION: configurable? fixed at 20?]
+- **FR-010**: Module MUST handle ties by ordering by total GitHub contributions (more active ranked higher)
+- **FR-011**: Module MUST support configurable weights with defaults: Skills 50%, Experience 30%, Activity 20%, Domain weight distributed when domain not specified
+- **FR-012**: Module MUST filter candidates below 30% minimum threshold score and flag them as below quality bar
 
 #### Transparency (Constitutional Principle IV)
-- **FR-012**: Module MUST provide score breakdown for each candidate showing individual scores (skill, activity, experience, domain)
-- **FR-013**: Module MUST provide reasoning for each score explaining what factors contributed
-- **FR-014**: Module MUST highlight which skills were matched and which were missing
-- **FR-015**: Module MUST show how activity score was calculated (e.g., "500 contributions in last year")
+- **FR-013**: Module MUST provide score breakdown for each candidate showing individual scores (skill, activity, experience, domain)
+- **FR-014**: Module MUST provide reasoning for each score explaining what factors contributed
+- **FR-015**: Module MUST highlight which skills were matched and which were missing
+- **FR-016**: Module MUST show how activity score was calculated (e.g., "500 contributions in last year")
+- **FR-017**: Module MUST match similar skills using LLM-based semantic matching ("React" matches "Frontend Development")
 
 #### Output Format
-- **FR-016**: Module MUST return list of RankedCandidate objects with original candidate data plus scoring metadata
-- **FR-017**: Each RankedCandidate MUST include: total_score, skill_match_score, activity_score, experience_score, domain_score, score_breakdown (explanation)
-- **FR-018**: Module MUST preserve all original Candidate fields (github_username, repos, etc.)
+- **FR-018**: Module MUST return list of RankedCandidate objects with original candidate data plus scoring metadata
+- **FR-019**: Each RankedCandidate MUST include: total_score, skill_match_score, activity_score, experience_score, domain_score, score_breakdown (explanation)
+- **FR-020**: Module MUST preserve all original Candidate fields (github_username, repos, etc.)
 
 #### Performance
-- **FR-019**: Module MUST complete ranking within [NEEDS CLARIFICATION: time limit - part of 2min total? specific?]
-- **FR-020**: Module MUST be deterministic (same inputs always produce same scores)
+- **FR-021**: Module MUST complete ranking within flexible allocation from 2-minute total pipeline budget
+- **FR-022**: Module MUST be deterministic (same inputs always produce same scores)
+- **FR-023**: Module MUST assess experience level based on composite score (weighted combination of account age, contribution volume, and repository complexity)
 
 #### Edge Cases
-- **FR-021**: Module MUST handle empty candidate list (return empty ranked list)
-- **FR-022**: Module MUST handle candidates with missing fields (score based on available data)
-- **FR-023**: Module MUST handle JobRequirement with no domain specified (skip domain scoring)
+- **FR-024**: Module MUST handle empty candidate list (return empty ranked list)
+- **FR-025**: Module MUST handle candidates with missing fields (score based on available data)
+- **FR-026**: Module MUST handle JobRequirement with no domain specified (skip domain scoring)
 
 ### Key Entities
 
@@ -174,9 +177,9 @@ The module operates as a pure algorithm with no external dependencies.
 
 ## Performance Requirements
 
-- **PR-001**: Ranking must complete within allocated time (part of 2-minute total pipeline)
+- **PR-001**: Ranking must complete within flexible allocation from 2-minute total pipeline budget
 - **PR-002**: Algorithm should be efficient (O(n log n) for sorting, O(n) for scoring)
-- **PR-003**: Module must handle up to [NEEDS CLARIFICATION: max candidates - 100? 500? 1000?] candidates without performance degradation
+- **PR-003**: Module must handle up to 25 candidates from Module 002 (sourcer returns max 25)
 
 ---
 
@@ -190,7 +193,7 @@ The module operates as a pure algorithm with no external dependencies.
 - [x] All mandatory sections completed
 
 ### Requirement Completeness
-- [ ] No [NEEDS CLARIFICATION] markers remain (6 items need clarification)
+- [x] No [NEEDS CLARIFICATION] markers remain
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Scope is clearly bounded
@@ -203,17 +206,25 @@ The module operates as a pure algorithm with no external dependencies.
 
 - [x] User description parsed
 - [x] Key concepts extracted (inputs, scoring, ranking, transparency)
-- [x] Ambiguities marked (6 NEEDS CLARIFICATION items)
+- [x] Ambiguities marked and resolved
 - [x] User scenarios defined
-- [x] Requirements generated (23 functional requirements)
+- [x] Requirements generated (26 functional requirements)
 - [x] Entities identified (2 entities)
-- [ ] Review checklist passed (warnings: clarifications needed)
+- [x] Review checklist passed
 
 ---
 
+## Clarifications Resolved
+
+1. **Tie-Breaking**: Total GitHub contributions (more active ranked higher)
+2. **Score Calculation**: Weighted sum formula
+3. **Default Weights**: Skills 50%, Experience 30%, Activity 20%
+4. **Minimum Threshold**: 30% (permissive filter)
+5. **Skill Matching**: LLM-based semantic matching
+6. **Experience Assessment**: Composite score (account age + contribution volume + repo complexity)
+
 ## Next Steps
 
-1. **Clarify this spec** → Resolve 6 [NEEDS CLARIFICATION] items
-2. **Plan implementation** → Design scoring algorithm
-3. **Generate tasks** → TDD task list
-4. **Build module** → Pure function, no external dependencies
+1. **Plan implementation** → Design scoring algorithm with LLM-based skill matching
+2. **Generate tasks** → TDD task list
+3. **Build module** → Pure function with LLM integration for semantic matching
