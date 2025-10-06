@@ -29,6 +29,17 @@
 
 ---
 
+## Clarifications
+
+### Session 2025-10-05
+- Q: Multi-language support scope - start with English only, or support other languages? → A: English only (simplifies POC, faster delivery)
+- Q: Input length limits - max characters for free-text input? → A: 20,000+ characters (unlimited - handle any length)
+- Q: Should system extract company info, benefits, or only candidate requirements? → A: Candidate requirements only (skills, experience, role)
+- Q: Output format specification - JSON schema, typed object, or other? → A: JSON with defined schema (standard web API format)
+- Q: What's the minimum viable input to proceed? → A: Both skill AND role required (stricter validation)
+
+---
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### Primary User Story
@@ -50,13 +61,15 @@ The system parses this free-text input and extracts:
 
 1. **Given** a recruiter is on the project creation screen, **When** they type "senior python developer with 5+ years in fintech using fastapi and postgresql", **Then** the system extracts: role="Senior Python Developer", skills=["Python", "FastAPI", "PostgreSQL"], experience="5+ years", domain="fintech"
 
-2. **Given** a recruiter enters minimal text "react developer", **When** the parser processes it, **Then** the system extracts: role="React Developer", skills=["React"], and marks experience, location, and other fields as unspecified
+2. **Given** a recruiter enters minimal text "react developer", **When** the parser processes it, **Then** the system extracts: role="React Developer" (inferred from "developer"), skills=["React"], and marks experience, location, and other fields as unspecified
 
-3. **Given** a recruiter provides ambiguous input "developer with some backend experience", **When** the parser processes it, **Then** the system flags ambiguous terms ("some backend experience" lacks specificity) and suggests clarification
+3. **Given** a recruiter provides input with missing required fields "backend experience needed", **When** the parser processes it, **Then** the system returns error indicating both role and specific technical skills are required
 
-4. **Given** a recruiter submits a formal job description with multiple paragraphs, **When** the parser processes it, **Then** the system extracts all structured fields from the prose (responsibilities, requirements, nice-to-haves)
+4. **Given** a recruiter provides ambiguous input "developer with some backend experience", **When** the parser processes it, **Then** the system flags ambiguous terms ("some backend experience" lacks specificity) but can proceed if role and at least one skill are identifiable
 
-5. **Given** a recruiter wants to refine their search, **When** they edit the free-text input, **Then** the system re-parses and updates the extracted requirements in real-time
+5. **Given** a recruiter submits a formal job description with multiple paragraphs, **When** the parser processes it, **Then** the system extracts all structured fields from the prose (responsibilities, requirements, nice-to-haves)
+
+6. **Given** a recruiter wants to refine their search, **When** they edit the free-text input, **Then** the system re-parses and updates the extracted requirements in real-time
 
 ### Edge Cases
 - What happens when the input contains contradictory information (e.g., "junior developer with 10 years experience")?
@@ -66,19 +79,19 @@ The system parses this free-text input and extracts:
   - System should normalize abbreviations (yoe → years of experience) and handle common typos
 
 - What happens when the input is in a language other than English?
-  - [NEEDS CLARIFICATION: Multi-language support scope - start with English only, or support other languages?]
+  - System rejects non-English input with error message: "Currently only English job descriptions are supported"
 
 - What happens when the input contains no technical skills, only soft skills (e.g., "team player with good communication")?
   - System should extract soft skills separately but warn that GitHub sourcing requires technical skills
 
-- What happens when the input is extremely long (e.g., 5000+ characters from a full JD)?
-  - [NEEDS CLARIFICATION: Input length limits - max characters for free-text input?]
+- What happens when the input is extremely long (e.g., 20,000+ characters from a comprehensive JD)?
+  - System processes the full input without truncation, extracting all relevant information regardless of length
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
 
-- **FR-001**: System MUST accept free-text natural language input for job descriptions without requiring structured forms or templates
+- **FR-001**: System MUST accept free-text natural language input for job descriptions in English without character limits, structured forms, or templates
 
 - **FR-002**: System MUST extract the following structured fields from free-text input:
   - Job role/title (e.g., "Senior Backend Engineer", "Frontend Developer")
@@ -121,18 +134,19 @@ The system parses this free-text input and extracts:
   - Extracting requirements from "Requirements" or "Qualifications" sections
   - Distinguishing responsibilities from requirements
   - Identifying "nice to have" vs "must have" from context
-  - [NEEDS CLARIFICATION: Should system extract company info, benefits, or only candidate requirements?]
+  - Ignoring company information, benefits, and non-candidate-requirement sections
 
-- **FR-010**: System MUST return structured output in a consistent format containing:
+- **FR-010**: System MUST return structured output as JSON with a defined schema containing:
   - All extracted fields (role, skills, experience, etc.)
   - Confidence score for each field (0-100%)
   - Original input text for reference
-  - [NEEDS CLARIFICATION: Output format specification - JSON schema, typed object, or other?]
+  - Schema versioning for backward compatibility
 
 - **FR-011**: System MUST handle parsing failures gracefully:
-  - If input contains zero technical information, return error with guidance
+  - If input contains zero technical skills, return error: "At least one technical skill required"
+  - If input contains no identifiable role/title, return error: "Job role or title required"
+  - Minimum viable input MUST contain both at least one skill AND one role/title
   - If input is gibberish or non-job-related, reject with clear message
-  - [NEEDS CLARIFICATION: What's the minimum viable input to proceed? (e.g., must have at least 1 skill?)]
 
 ### Key Entities *(include if feature involves data)*
 
@@ -164,11 +178,11 @@ The system parses this free-text input and extracts:
 - [x] All mandatory sections completed
 
 ### Requirement Completeness
-- [ ] No [NEEDS CLARIFICATION] markers remain (3 items need clarification)
+- [x] No [NEEDS CLARIFICATION] markers remain (all 5 clarifications completed)
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable (via confidence scores, extraction accuracy)
 - [x] Scope is clearly bounded (free-text input → structured output, no UI/UX implementation)
-- [x] Dependencies and assumptions identified (assumes English input, GitHub as target platform)
+- [x] Dependencies and assumptions identified (English input, GitHub as target platform)
 
 ---
 
