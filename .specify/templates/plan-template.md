@@ -47,7 +47,35 @@
 ## Constitution Check
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+### I. AI-First Development
+- [ ] LLM used for JD parsing (no regex/keyword matching)
+- [ ] LLM used for outreach generation (no templates without AI context)
+- [ ] AI components are modular and provider-agnostic
+- [ ] AI interactions logged for debugging
+
+### II. Privacy-First Architecture
+- [ ] Only public GitHub API data used
+- [ ] No private repo or email scraping
+- [ ] Opt-out mechanism included
+- [ ] GDPR compliance implemented (data retention, right to erasure)
+
+### III. Single Source of Truth
+- [ ] No LinkedIn/job board integration in this phase
+- [ ] All data from GitHub REST/GraphQL API only
+- [ ] GitHub API rate limits respected (5000 req/hour with auth)
+- [ ] Caching strategy defined
+
+### IV. Transparency & Explainability
+- [ ] Ranking algorithm is explainable (score breakdown shown)
+- [ ] AI-generated content shows reasoning
+- [ ] No black-box decisions
+
+### V. Modular Architecture
+- [ ] JD Parser is standalone with clear interface
+- [ ] GitHub Sourcer is independent service
+- [ ] Ranking Engine is pure function
+- [ ] Outreach Generator is isolated component
+- [ ] All modules independently testable
 
 ## Project Structure
 
