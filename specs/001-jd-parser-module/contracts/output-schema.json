@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "JD Parser Output Schema",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": ["string", "null"],
+      "description": "Extracted job role/title"
+    },
+    "required_skills": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Must-have technical skills (normalized)"
+    },
+    "preferred_skills": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Nice-to-have skills (normalized)"
+    },
+    "years_of_experience": {
+      "type": "object",
+      "properties": {
+        "min": {"type": ["integer", "null"], "minimum": 0},
+        "max": {"type": ["integer", "null"], "minimum": 0},
+        "range_text": {"type": ["string", "null"]}
+      },
+      "required": ["min", "max", "range_text"]
+    },
+    "seniority_level": {
+      "type": ["string", "null"],
+      "enum": ["Junior", "Mid-level", "Senior", "Staff", "Principal", null]
+    },
+    "location_preferences": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "domain": {
+      "type": ["string", "null"],
+      "description": "Industry/domain context"
+    },
+    "confidence_scores": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "score": {"type": "integer", "minimum": 0, "maximum": 100},
+          "reasoning": {"type": "string", "minLength": 1},
+          "highlighted_spans": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "start": {"type": "integer", "minimum": 0},
+                "end": {"type": "integer", "minimum": 0},
+                "text": {"type": "string"}
+              },
+              "required": ["start", "end", "text"]
+            }
+          }
+        },
+        "required": ["score", "reasoning"]
+      }
+    },
+    "original_input": {
+      "type": "string",
+      "description": "Raw JD text for reference"
+    },
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Output schema version (semver)"
+    }
+  },
+  "required": [
+    "role",
+    "required_skills",
+    "preferred_skills",
+    "years_of_experience",
+    "seniority_level",
+    "location_preferences",
+    "domain",
+    "confidence_scores",
+    "original_input",
+    "schema_version"
+  ],
+  "additionalProperties": false
+}

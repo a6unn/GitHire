@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "JD Parser Input Schema",
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Free-text job description in English"
+    },
+    "language": {
+      "type": "string",
+      "enum": ["en"],
+      "default": "en",
+      "description": "Input language (English only for POC)"
+    }
+  },
+  "required": ["text"],
+  "additionalProperties": false
+}
