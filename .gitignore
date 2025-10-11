@@ -146,6 +146,11 @@ scratch/
 notes/
 TODO.txt
 
+# One-time utility scripts
+rename_screenshots.py
+demo_pipeline.py
+GITHUB_PUBLISH_GUIDE.md
+
 # ============================================================================
 # Cached Data
 # ============================================================================
