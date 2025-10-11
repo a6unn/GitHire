@@ -1,0 +1,142 @@
+# State-to-Cities Mapping for Multi-City Search
+# When a state is specified, automatically search in these major tech cities
+
+# Indian States
+indian_states:
+  tamil_nadu:
+    canonical: "Tamil Nadu"
+    country: "India"
+    major_cities:
+      - "Chennai"
+      - "Coimbatore"
+      - "Trichy"
+      - "Madurai"
+      - "Salem"
+      - "Erode"
+
+  karnataka:
+    canonical: "Karnataka"
+    country: "India"
+    major_cities:
+      - "Bangalore"
+      - "Bengaluru"
+      - "Mysore"
+      - "Mangalore"
+      - "Hubli"
+
+  maharashtra:
+    canonical: "Maharashtra"
+    country: "India"
+    major_cities:
+      - "Mumbai"
+      - "Pune"
+      - "Nagpur"
+      - "Nashik"
+      - "Aurangabad"
+
+  kerala:
+    canonical: "Kerala"
+    country: "India"
+    major_cities:
+      - "Kochi"
+      - "Thiruvananthapuram"
+      - "Kozhikode"
+      - "Thrissur"
+
+  telangana:
+    canonical: "Telangana"
+    country: "India"
+    major_cities:
+      - "Hyderabad"
+      - "Warangal"
+      - "Nizamabad"
+
+  andhra_pradesh:
+    canonical: "Andhra Pradesh"
+    country: "India"
+    major_cities:
+      - "Visakhapatnam"
+      - "Vijayawada"
+      - "Guntur"
+      - "Tirupati"
+
+  gujarat:
+    canonical: "Gujarat"
+    country: "India"
+    major_cities:
+      - "Ahmedabad"
+      - "Surat"
+      - "Vadodara"
+      - "Rajkot"
+
+  west_bengal:
+    canonical: "West Bengal"
+    country: "India"
+    major_cities:
+      - "Kolkata"
+      - "Howrah"
+      - "Durgapur"
+
+  punjab:
+    canonical: "Punjab"
+    country: "India"
+    major_cities:
+      - "Chandigarh"
+      - "Ludhiana"
+      - "Amritsar"
+      - "Jalandhar"
+
+  haryana:
+    canonical: "Haryana"
+    country: "India"
+    major_cities:
+      - "Gurgaon"
+      - "Faridabad"
+      - "Noida"
+      - "Greater Noida"
+
+# US States (common tech hubs)
+us_states:
+  california:
+    canonical: "California"
+    country: "United States"
+    major_cities:
+      - "San Francisco"
+      - "Los Angeles"
+      - "San Diego"
+      - "San Jose"
+      - "Sacramento"
+
+  new_york:
+    canonical: "New York"
+    country: "United States"
+    major_cities:
+      - "New York City"
+      - "Brooklyn"
+      - "Buffalo"
+      - "Rochester"
+
+  texas:
+    canonical: "Texas"
+    country: "United States"
+    major_cities:
+      - "Austin"
+      - "Houston"
+      - "Dallas"
+      - "San Antonio"
+
+  washington:
+    canonical: "Washington"
+    country: "United States"
+    major_cities:
+      - "Seattle"
+      - "Bellevue"
+      - "Tacoma"
+
+  massachusetts:
+    canonical: "Massachusetts"
+    country: "United States"
+    major_cities:
+      - "Boston"
+      - "Cambridge"
+      - "Worcester"

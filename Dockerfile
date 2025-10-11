@@ -1,0 +1,73 @@
+# GitHire Backend Dockerfile
+# Multi-stage build for optimal image size
+
+# Stage 1: Base stage with Python dependencies
+FROM python:3.11-slim AS base
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    g++ \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Stage 2: Builder stage for installing Python packages
+FROM base AS builder
+
+# Copy only requirements-related files first for better caching
+COPY pyproject.toml ./
+
+# Install Python dependencies
+RUN pip install --user --no-warn-script-location -e .
+
+# Stage 3: Final runtime stage
+FROM python:3.11-slim
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PATH=/root/.local/bin:$PATH
+
+# Set working directory
+WORKDIR /app
+
+# Install runtime dependencies only
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy Python packages from builder
+COPY --from=builder /root/.local /root/.local
+
+# Copy application code
+COPY src/ ./src/
+COPY .env.example .env.example
+
+# Create necessary directories
+RUN mkdir -p /app/data /app/logs
+
+# Create non-root user for security
+RUN useradd -m -u 1000 githire && \
+    chown -R githire:githire /app
+
+# Switch to non-root user
+USER githire
+
+# Expose port
+EXPOSE 8000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Default command
+CMD ["uvicorn", "src.backend_api.main:app", "--host", "0.0.0.0", "--port", "8000"]

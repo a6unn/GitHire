@@ -1,0 +1,211 @@
+{
+  "description": "Skill name normalization mappings",
+  "version": "1.0.0",
+  "last_updated": "2025-10-09",
+  "aliases": {
+    "JavaScript": {
+      "canonical": "JavaScript",
+      "aliases": ["javascript", "js", "JS", "ECMAScript", "ecmascript", "es6", "es2015", "es2020"]
+    },
+    "TypeScript": {
+      "canonical": "TypeScript",
+      "aliases": ["typescript", "ts", "TS"]
+    },
+    "Python": {
+      "canonical": "Python",
+      "aliases": ["python", "py", "python3", "python2", "Python3", "Python2"]
+    },
+    "React": {
+      "canonical": "React",
+      "aliases": ["react", "reactjs", "react.js", "React.js", "ReactJS"]
+    },
+    "React Native": {
+      "canonical": "React Native",
+      "aliases": ["react-native", "reactnative", "react_native", "ReactNative"]
+    },
+    "Vue": {
+      "canonical": "Vue.js",
+      "aliases": ["vue", "vuejs", "vue.js", "Vue", "VueJS", "Vue.js"]
+    },
+    "Angular": {
+      "canonical": "Angular",
+      "aliases": ["angular", "angularjs", "angular.js", "Angular.js", "AngularJS"]
+    },
+    "Node.js": {
+      "canonical": "Node.js",
+      "aliases": ["node", "nodejs", "node.js", "Node", "NodeJS"]
+    },
+    "Express": {
+      "canonical": "Express.js",
+      "aliases": ["express", "expressjs", "express.js", "Express"]
+    },
+    "FastAPI": {
+      "canonical": "FastAPI",
+      "aliases": ["fastapi", "fast-api", "fast_api"]
+    },
+    "Django": {
+      "canonical": "Django",
+      "aliases": ["django", "Django Framework"]
+    },
+    "Flask": {
+      "canonical": "Flask",
+      "aliases": ["flask"]
+    },
+    "pandas": {
+      "canonical": "pandas",
+      "aliases": ["Pandas", "PANDAS", "pd"]
+    },
+    "NumPy": {
+      "canonical": "NumPy",
+      "aliases": ["numpy", "Numpy", "NUMPY", "np"]
+    },
+    "scikit-learn": {
+      "canonical": "scikit-learn",
+      "aliases": ["sklearn", "scikit-learn", "scikitlearn", "scikit_learn", "Scikit-learn", "Scikit-Learn"]
+    },
+    "TensorFlow": {
+      "canonical": "TensorFlow",
+      "aliases": ["tensorflow", "Tensorflow", "tf", "TF"]
+    },
+    "PyTorch": {
+      "canonical": "PyTorch",
+      "aliases": ["pytorch", "Pytorch", "torch"]
+    },
+    "Keras": {
+      "canonical": "Keras",
+      "aliases": ["keras"]
+    },
+    "Docker": {
+      "canonical": "Docker",
+      "aliases": ["docker", "DOCKER"]
+    },
+    "Kubernetes": {
+      "canonical": "Kubernetes",
+      "aliases": ["kubernetes", "k8s", "K8s", "K8S"]
+    },
+    "AWS": {
+      "canonical": "AWS",
+      "aliases": ["aws", "Amazon Web Services", "amazon-web-services"]
+    },
+    "Azure": {
+      "canonical": "Azure",
+      "aliases": ["azure", "Microsoft Azure", "microsoft-azure"]
+    },
+    "GCP": {
+      "canonical": "Google Cloud Platform",
+      "aliases": ["gcp", "google-cloud", "google cloud", "Google Cloud"]
+    },
+    "PostgreSQL": {
+      "canonical": "PostgreSQL",
+      "aliases": ["postgresql", "postgres", "Postgres", "pgsql"]
+    },
+    "MySQL": {
+      "canonical": "MySQL",
+      "aliases": ["mysql", "MYSQL"]
+    },
+    "MongoDB": {
+      "canonical": "MongoDB",
+      "aliases": ["mongodb", "mongo", "Mongo"]
+    },
+    "Redis": {
+      "canonical": "Redis",
+      "aliases": ["redis", "REDIS"]
+    },
+    "Git": {
+      "canonical": "Git",
+      "aliases": ["git", "GIT"]
+    },
+    "GitHub": {
+      "canonical": "GitHub",
+      "aliases": ["github", "Github"]
+    },
+    "GitLab": {
+      "canonical": "GitLab",
+      "aliases": ["gitlab", "Gitlab"]
+    },
+    "REST API": {
+      "canonical": "REST API",
+      "aliases": ["rest", "REST", "restful", "RESTful", "rest-api", "restapi"]
+    },
+    "GraphQL": {
+      "canonical": "GraphQL",
+      "aliases": ["graphql", "graph-ql", "gql", "GQL"]
+    },
+    "Go": {
+      "canonical": "Go",
+      "aliases": ["go", "golang", "Golang", "GO"]
+    },
+    "Rust": {
+      "canonical": "Rust",
+      "aliases": ["rust", "RUST"]
+    },
+    "Java": {
+      "canonical": "Java",
+      "aliases": ["java", "JAVA"]
+    },
+    "C++": {
+      "canonical": "C++",
+      "aliases": ["cpp", "c++", "CPP", "C++"]
+    },
+    "C#": {
+      "canonical": "C#",
+      "aliases": ["csharp", "c-sharp", "C-Sharp", "CSharp"]
+    },
+    "Ruby": {
+      "canonical": "Ruby",
+      "aliases": ["ruby", "RUBY"]
+    },
+    "Rails": {
+      "canonical": "Ruby on Rails",
+      "aliases": ["rails", "ruby-on-rails", "rubyonrails", "ror", "RoR"]
+    },
+    "PHP": {
+      "canonical": "PHP",
+      "aliases": ["php", "Php"]
+    },
+    "Laravel": {
+      "canonical": "Laravel",
+      "aliases": ["laravel"]
+    },
+    "Swift": {
+      "canonical": "Swift",
+      "aliases": ["swift", "SWIFT"]
+    },
+    "Kotlin": {
+      "canonical": "Kotlin",
+      "aliases": ["kotlin", "KOTLIN"]
+    },
+    "Machine Learning": {
+      "canonical": "Machine Learning",
+      "aliases": ["ml", "ML", "machine-learning", "machine_learning", "machinelearning"]
+    },
+    "Deep Learning": {
+      "canonical": "Deep Learning",
+      "aliases": ["dl", "DL", "deep-learning", "deep_learning", "deeplearning"]
+    },
+    "Data Science": {
+      "canonical": "Data Science",
+      "aliases": ["data-science", "data_science", "datascience", "ds", "DS"]
+    },
+    "DevOps": {
+      "canonical": "DevOps",
+      "aliases": ["devops", "dev-ops", "dev_ops"]
+    },
+    "CI/CD": {
+      "canonical": "CI/CD",
+      "aliases": ["cicd", "ci-cd", "ci/cd", "continuous-integration", "continuous-deployment"]
+    },
+    "Terraform": {
+      "canonical": "Terraform",
+      "aliases": ["terraform", "tf"]
+    },
+    "Ansible": {
+      "canonical": "Ansible",
+      "aliases": ["ansible"]
+    }
+  },
+  "reverse_lookup": {
+    "note": "This section is auto-generated for quick reverse lookups",
+    "purpose": "Map any alias back to its canonical form"
+  }
+}

@@ -1,0 +1,73 @@
+# Git
+.git/
+.gitignore
+.github/
+
+# Documentation
+*.md
+docs/
+examples/
+specs/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+venv/
+env/
+.venv/
+ENV/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+tests/
+*.log
+
+# Environment
+.env
+.env.*
+!.env.example
+!.env.docker
+
+# Database
+*.db
+*.db.backup
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Frontend
+frontend/
+node_modules/
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# CI/CD
+.github/
+
+# Temporary files
+tmp/
+temp/
+*.tmp

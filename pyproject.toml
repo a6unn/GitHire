@@ -1,0 +1,119 @@
+[build-system]
+requires = ["setuptools>=68.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "githire"
+version = "1.0.0"
+description = "AI-powered GitHub developer recruitment platform that helps source, evaluate, and reach out to software developers"
+authors = [
+    {name = "Ideas2IT Team", email = "contact@ideas2it.com"}
+]
+maintainers = [
+    {name = "Ideas2IT Team", email = "contact@ideas2it.com"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+keywords = [
+    "recruitment",
+    "github",
+    "ai",
+    "developer-sourcing",
+    "talent-acquisition",
+    "hiring",
+    "llm",
+    "fastapi",
+    "react",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Other Audience",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Framework :: FastAPI",
+    "Topic :: Office/Business",
+    "Topic :: Software Development",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://github.com/a6unn/GitHire"
+Documentation = "https://github.com/a6unn/GitHire/tree/main/docs"
+Repository = "https://github.com/a6unn/GitHire"
+"Bug Tracker" = "https://github.com/a6unn/GitHire/issues"
+Changelog = "https://github.com/a6unn/GitHire/blob/main/CHANGELOG.md"
+
+dependencies = [
+    # Module 001: JD Parser
+    "openai>=1.0.0",
+    "anthropic>=0.18.0",
+
+    # Module 002: GitHub Sourcer
+    "httpx>=0.24.0",
+    "redis>=5.0.0",
+    "pyyaml>=6.0",              # Config file parsing
+    "python-Levenshtein>=0.21.0",  # Fuzzy string matching
+    "rapidfuzz>=3.0.0",         # Faster fuzzy matching alternative
+
+    # Module 010: Contact Enrichment
+    "email-validator>=2.0.0",   # Email format validation
+
+    # Module 005: Backend API
+    "fastapi>=0.104.0",
+    "sqlalchemy[asyncio]>=2.0.0",
+    "aiosqlite>=0.19.0",
+    "python-jose[cryptography]>=3.3.0",
+    "passlib[bcrypt]>=1.7.4",
+    "uvicorn[standard]>=0.24.0",
+
+    # Shared
+    "pydantic>=2.0.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-mock>=3.11.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.7.0",
+]
+bigquery = [
+    # Optional: GHArchive BigQuery integration
+    "google-cloud-bigquery>=3.11.0",
+]
+
+[project.scripts]
+jd-parser = "src.jd_parser.cli:main"
+github-sourcer = "src.github_sourcer.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+asyncio_mode = "auto"
+addopts = "-v --strict-markers --tb=short"
+pythonpath = ["."]
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_configs = true

@@ -1,0 +1,78 @@
+{
+  "name": "githire-frontend",
+  "version": "1.0.0",
+  "description": "Frontend application for GitHire - AI-powered GitHub developer recruitment platform",
+  "private": false,
+  "type": "module",
+  "author": {
+    "name": "Ideas2IT Team",
+    "email": "contact@ideas2it.com",
+    "url": "https://ideas2it.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "recruitment",
+    "github",
+    "ai",
+    "developer-sourcing",
+    "talent-acquisition",
+    "hiring",
+    "react",
+    "typescript",
+    "vite"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/a6unn/GitHire.git",
+    "directory": "frontend"
+  },
+  "bugs": {
+    "url": "https://github.com/a6unn/GitHire/issues"
+  },
+  "homepage": "https://github.com/a6unn/GitHire#readme",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.2.9",
+    "@heroicons/react": "^2.2.0",
+    "@tanstack/react-query": "^5.90.2",
+    "axios": "^1.12.2",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.23.22",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-intersection-observer": "^9.16.0",
+    "react-router-dom": "^6.30.1",
+    "recharts": "^3.2.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "@tailwindcss/postcss": "^4.1.14",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.6.0",
+    "@types/react": "^19.1.16",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.4",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.36.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.22",
+    "globals": "^16.4.0",
+    "jsdom": "^26.1.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.14",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.45.0",
+    "vite": "^7.1.7",
+    "vitest": "^3.2.4"
+  }
+}

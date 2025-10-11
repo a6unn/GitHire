@@ -1,0 +1,113 @@
+# Skills Detection Configuration
+# ==========================================================================
+# General configuration for the GitHub sourcing and skills detection system
+# ==========================================================================
+
+# GitHub API Configuration
+github_api:
+  rest_api_base_url: "https://api.github.com"
+  graphql_api_url: "https://api.github.com/graphql"
+  rate_limit_threshold: 10       # Pause when remaining < 10 requests
+  rate_limit_pause_seconds: 60   # Wait 60 seconds when rate limited
+  timeout_seconds: 30
+  max_retries: 3
+  retry_backoff_multiplier: 2    # Exponential backoff: 2s, 4s, 8s
+
+# GraphQL Batching (CRITICAL - 4.6x speedup validated)
+graphql_batching:
+  enabled: true
+  batch_size: 50                 # 10-50 users per query (configurable)
+  max_concurrent_batches: 5      # Process 5 batches in parallel
+  batch_timeout_seconds: 30
+
+# BigQuery Integration (Optional - Step 1 alternative)
+bigquery:
+  enabled: false                 # Set to true to enable GHArchive queries
+  project_id: ""                 # Your Google Cloud project ID
+  dataset: "githubarchive"       # GHArchive public dataset
+  query_timeout_seconds: 60
+  max_query_cost_usd: 5.00       # Halt if query exceeds $5
+  cache_ttl_seconds: 86400       # 24 hours (minimize costs)
+  fallback_to_github_search: true  # If BigQuery fails, use GitHub Search
+
+# Location Filtering Configuration
+location_filtering:
+  enabled: true
+  hierarchy_enabled: true        # Chennai → Tamil Nadu → India
+  priority_scores:
+    city_match: 1.0
+    state_match: 0.7
+    country_match: 0.3
+  fuzzy_matching:
+    enabled: true
+    levenshtein_threshold: 0.80  # 80% similarity required
+    max_distance: 3              # Max 3 character edits
+  database_path: "src/data/cities.json"  # dr5hn cities database
+
+# Skills Detection Configuration
+skills_detection:
+  primary_method: "dependency_graph"  # dependency_graph or ensemble
+  fallback_enabled: true
+  min_confidence_threshold: 0.50
+  max_skills_per_candidate: 20
+
+  dependency_graph:
+    enabled: true
+    api_endpoint: "/repos/{owner}/{repo}/dependency-graph/sbom"
+    supported_ecosystems:
+      - "pip"           # Python (requirements.txt, setup.py)
+      - "npm"           # JavaScript/TypeScript (package.json)
+      - "cargo"         # Rust (Cargo.toml)
+      - "go"            # Go (go.mod)
+      - "maven"         # Java (pom.xml)
+      - "composer"      # PHP (composer.json)
+    retry_on_502: true
+    max_retries: 3
+
+  ensemble_scoring:
+    enabled: true        # Always enabled as fallback
+    weights_config_path: "src/config/skill_weights.yaml"
+
+# Caching Configuration
+caching:
+  redis_url: "${REDIS_URL:-redis://localhost:6379}"
+  enabled: true
+  ttl_seconds:
+    profile_cache: 3600           # 1 hour for profiles
+    search_results: 3600          # 1 hour for search results
+    bigquery_results: 86400       # 24 hours for BigQuery (cost optimization)
+    location_lookups: 604800      # 7 days for location parsing
+  key_prefix: "githire:sourcer:"
+
+# Performance Thresholds
+performance:
+  target_time_5000_candidates: 300  # 5 minutes (300 seconds)
+  max_candidates_per_search: 5000
+  min_candidates_to_return: 25
+  max_candidates_to_return: 25
+  parallel_enrichment: true
+  max_concurrent_enrichments: 10
+
+# Alias Data Files
+data_files:
+  skill_aliases: "src/data/skill_aliases.json"
+  location_aliases: "src/data/location_aliases.json"
+  cities_database: "src/data/cities.json"
+
+# Logging Configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_api_calls: true
+  log_cache_hits: true
+  log_skill_scores: true
+  log_performance_metrics: true
+  structured_logging: true
+
+# Monitoring & Alerts
+monitoring:
+  enabled: true
+  track_accuracy: true
+  track_performance: true
+  track_api_usage: true
+  alert_on_failures: true
+  metrics_export_path: "/tmp/githire_metrics.json"

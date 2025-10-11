@@ -1,0 +1,206 @@
+{
+  "description": "Location name variant mappings for hierarchical matching",
+  "version": "1.0.0",
+  "last_updated": "2025-10-09",
+  "city_aliases": {
+    "Bangalore": {
+      "canonical": "Bengaluru",
+      "aliases": ["Bangalore", "Bengaluru", "Bengalooru", "BLR", "bangalore", "bengaluru"],
+      "state": "Karnataka",
+      "country": "India"
+    },
+    "Mumbai": {
+      "canonical": "Mumbai",
+      "aliases": ["Mumbai", "Bombay", "mumbai", "bombay", "BOM"],
+      "state": "Maharashtra",
+      "country": "India"
+    },
+    "Delhi": {
+      "canonical": "New Delhi",
+      "aliases": ["Delhi", "New Delhi", "delhi", "new delhi", "DEL", "NCR"],
+      "state": "Delhi",
+      "country": "India"
+    },
+    "Chennai": {
+      "canonical": "Chennai",
+      "aliases": ["Chennai", "Madras", "chennai", "madras", "MAA"],
+      "state": "Tamil Nadu",
+      "country": "India"
+    },
+    "Hyderabad": {
+      "canonical": "Hyderabad",
+      "aliases": ["Hyderabad", "hyderabad", "HYD", "Hyd"],
+      "state": "Telangana",
+      "country": "India"
+    },
+    "Pune": {
+      "canonical": "Pune",
+      "aliases": ["Pune", "pune", "Poona", "poona"],
+      "state": "Maharashtra",
+      "country": "India"
+    },
+    "Kolkata": {
+      "canonical": "Kolkata",
+      "aliases": ["Kolkata", "Calcutta", "kolkata", "calcutta", "CCU"],
+      "state": "West Bengal",
+      "country": "India"
+    },
+    "San Francisco": {
+      "canonical": "San Francisco",
+      "aliases": ["San Francisco", "SF", "SFO", "san francisco", "sf"],
+      "state": "California",
+      "country": "United States"
+    },
+    "New York": {
+      "canonical": "New York",
+      "aliases": ["New York", "NYC", "new york", "nyc", "New York City"],
+      "state": "New York",
+      "country": "United States"
+    },
+    "Los Angeles": {
+      "canonical": "Los Angeles",
+      "aliases": ["Los Angeles", "LA", "L.A.", "los angeles", "la"],
+      "state": "California",
+      "country": "United States"
+    },
+    "Seattle": {
+      "canonical": "Seattle",
+      "aliases": ["Seattle", "seattle", "SEA"],
+      "state": "Washington",
+      "country": "United States"
+    },
+    "Austin": {
+      "canonical": "Austin",
+      "aliases": ["Austin", "austin", "AUS"],
+      "state": "Texas",
+      "country": "United States"
+    },
+    "London": {
+      "canonical": "London",
+      "aliases": ["London", "london", "LDN", "LON"],
+      "state": "England",
+      "country": "United Kingdom"
+    },
+    "Berlin": {
+      "canonical": "Berlin",
+      "aliases": ["Berlin", "berlin", "BER"],
+      "state": "Berlin",
+      "country": "Germany"
+    },
+    "Paris": {
+      "canonical": "Paris",
+      "aliases": ["Paris", "paris", "PAR"],
+      "state": "Île-de-France",
+      "country": "France"
+    },
+    "Tokyo": {
+      "canonical": "Tokyo",
+      "aliases": ["Tokyo", "tokyo", "TYO"],
+      "state": "Tokyo",
+      "country": "Japan"
+    },
+    "Singapore": {
+      "canonical": "Singapore",
+      "aliases": ["Singapore", "singapore", "SG", "SIN"],
+      "state": "Singapore",
+      "country": "Singapore"
+    },
+    "Sydney": {
+      "canonical": "Sydney",
+      "aliases": ["Sydney", "sydney", "SYD"],
+      "state": "New South Wales",
+      "country": "Australia"
+    }
+  },
+  "state_aliases": {
+    "Karnataka": {
+      "canonical": "Karnataka",
+      "aliases": ["Karnataka", "karnataka", "KA", "Karnātaka"],
+      "country": "India"
+    },
+    "Tamil Nadu": {
+      "canonical": "Tamil Nadu",
+      "aliases": ["Tamil Nadu", "tamil nadu", "TN", "Tamilnadu"],
+      "country": "India"
+    },
+    "Maharashtra": {
+      "canonical": "Maharashtra",
+      "aliases": ["Maharashtra", "maharashtra", "MH"],
+      "country": "India"
+    },
+    "California": {
+      "canonical": "California",
+      "aliases": ["California", "california", "CA", "Calif."],
+      "country": "United States"
+    },
+    "New York": {
+      "canonical": "New York",
+      "aliases": ["New York", "new york", "NY", "N.Y."],
+      "country": "United States"
+    },
+    "Texas": {
+      "canonical": "Texas",
+      "aliases": ["Texas", "texas", "TX", "Tex."],
+      "country": "United States"
+    },
+    "Washington": {
+      "canonical": "Washington",
+      "aliases": ["Washington", "washington", "WA", "Wash."],
+      "country": "United States"
+    }
+  },
+  "country_aliases": {
+    "India": {
+      "canonical": "India",
+      "aliases": ["India", "india", "IN", "IND", "Bharat", "Republic of India"]
+    },
+    "United States": {
+      "canonical": "United States",
+      "aliases": ["United States", "USA", "US", "U.S.", "U.S.A.", "United States of America", "America"]
+    },
+    "United Kingdom": {
+      "canonical": "United Kingdom",
+      "aliases": ["United Kingdom", "UK", "U.K.", "GB", "Great Britain", "Britain", "England"]
+    },
+    "Germany": {
+      "canonical": "Germany",
+      "aliases": ["Germany", "germany", "DE", "DEU", "Deutschland"]
+    },
+    "France": {
+      "canonical": "France",
+      "aliases": ["France", "france", "FR", "FRA"]
+    },
+    "Japan": {
+      "canonical": "Japan",
+      "aliases": ["Japan", "japan", "JP", "JPN", "Nippon"]
+    },
+    "Singapore": {
+      "canonical": "Singapore",
+      "aliases": ["Singapore", "singapore", "SG", "SGP"]
+    },
+    "Australia": {
+      "canonical": "Australia",
+      "aliases": ["Australia", "australia", "AU", "AUS"]
+    },
+    "Canada": {
+      "canonical": "Canada",
+      "aliases": ["Canada", "canada", "CA", "CAN"]
+    },
+    "China": {
+      "canonical": "China",
+      "aliases": ["China", "china", "CN", "CHN", "PRC", "People's Republic of China"]
+    }
+  },
+  "special_locations": {
+    "Remote": {
+      "canonical": "Remote",
+      "aliases": ["Remote", "remote", "Remote Work", "Work from Home", "WFH", "Anywhere"],
+      "match_globally": true
+    },
+    "Worldwide": {
+      "canonical": "Worldwide",
+      "aliases": ["Worldwide", "worldwide", "Global", "global", "International"],
+      "match_globally": true
+    }
+  }
+}

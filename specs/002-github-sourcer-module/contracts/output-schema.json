@@ -1,0 +1,186 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GitHub Sourcer Output Schema",
+  "description": "Output contains list of Candidates and SearchResult metadata",
+  "type": "object",
+  "properties": {
+    "candidates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Candidate"
+      },
+      "maxItems": 25,
+      "description": "List of GitHub developer candidates (max 25)"
+    },
+    "metadata": {
+      "$ref": "#/definitions/SearchResult"
+    }
+  },
+  "required": ["candidates", "metadata"],
+  "definitions": {
+    "Candidate": {
+      "type": "object",
+      "properties": {
+        "github_username": {
+          "type": "string",
+          "minLength": 1,
+          "description": "GitHub username (unique identifier)"
+        },
+        "name": {
+          "type": ["string", "null"],
+          "description": "Display name"
+        },
+        "bio": {
+          "type": ["string", "null"],
+          "description": "User bio/description"
+        },
+        "location": {
+          "type": ["string", "null"],
+          "description": "Geographic location"
+        },
+        "public_email": {
+          "type": ["string", "null"],
+          "format": "email",
+          "description": "Public email if available"
+        },
+        "top_repos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Repository"
+          },
+          "maxItems": 5,
+          "description": "Top 5 repositories by stars"
+        },
+        "languages": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Programming languages from repos (deduplicated, sorted)"
+        },
+        "contribution_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total contributions in last year"
+        },
+        "account_age_days": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Days since account creation"
+        },
+        "followers": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Follower count"
+        },
+        "profile_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "GitHub profile URL"
+        },
+        "avatar_url": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "Profile image URL"
+        },
+        "fetched_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when data was fetched (ISO 8601)"
+        }
+      },
+      "required": [
+        "github_username",
+        "top_repos",
+        "languages",
+        "contribution_count",
+        "account_age_days",
+        "followers",
+        "profile_url",
+        "fetched_at"
+      ]
+    },
+    "Repository": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Repository name"
+        },
+        "description": {
+          "type": ["string", "null"],
+          "description": "Repository description"
+        },
+        "stars": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Star count"
+        },
+        "forks": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Fork count"
+        },
+        "languages": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Programming languages used in repo"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "GitHub repository URL"
+        }
+      },
+      "required": ["name", "stars", "forks", "languages", "url"]
+    },
+    "SearchResult": {
+      "type": "object",
+      "properties": {
+        "total_candidates_found": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total matches on GitHub"
+        },
+        "candidates_returned": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 25,
+          "description": "Number of candidates returned (max 25)"
+        },
+        "search_timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When search was executed (ISO 8601)"
+        },
+        "rate_limit_remaining": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "GitHub API quota remaining"
+        },
+        "cache_hit": {
+          "type": "boolean",
+          "description": "Whether results came from cache"
+        },
+        "execution_time_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Search duration in milliseconds"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Warnings (e.g., rate limit low, partial results)"
+        }
+      },
+      "required": [
+        "total_candidates_found",
+        "candidates_returned",
+        "search_timestamp",
+        "rate_limit_remaining",
+        "cache_hit",
+        "execution_time_ms",
+        "warnings"
+      ]
+    }
+  }
+}

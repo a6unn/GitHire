@@ -1,0 +1,49 @@
+# Spam/Test Email Domains Configuration
+# Contact Enrichment Module - Module 010
+# Purpose: Filter fake, test, and example email addresses
+
+# Test/example domains (RFC 2606)
+test_domains:
+  - "example.com"
+  - "example.org"
+  - "example.net"
+  - "test.com"
+  - "testing.com"
+  - "tests.com"
+
+# Localhost and loopback
+localhost:
+  - "localhost"
+  - "localhost.localdomain"
+  - "127.0.0.1"
+  - "local"
+
+# Disposable/temporary email services
+disposable:
+  - "tempmail.com"
+  - "10minutemail.com"
+  - "guerrillamail.com"
+  - "mailinator.com"
+  - "trashmail.com"
+  - "throwaway.email"
+
+# Invalid/placeholder domains
+invalid:
+  - "invalid.invalid"
+  - "null.null"
+  - "none.none"
+  - "placeholder.com"
+  - "email.com"  # Generic placeholder
+  - "mail.com"   # Often used as placeholder
+
+# Development/staging domains
+development:
+  - "dev.local"
+  - "localhost.com"
+  - "staging.local"
+  - "test.local"
+
+# Configuration metadata
+version: "1.0.0"
+last_updated: "2025-10-10"
+description: "Spam and test email domains to exclude from contact enrichment"

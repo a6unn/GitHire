@@ -1,0 +1,230 @@
+{
+  "description": "Cities database for hierarchical location matching",
+  "version": "1.0.0-starter",
+  "note": "This is a starter database with major tech hubs. For production, replace with dr5hn/countries-states-cities-database (151K cities)",
+  "download_full_db": "https://github.com/dr5hn/countries-states-cities-database",
+  "last_updated": "2025-10-09",
+  "cities": [
+    {
+      "id": 1,
+      "name": "Bengaluru",
+      "state_name": "Karnataka",
+      "state_code": "KA",
+      "country_name": "India",
+      "country_code": "IN",
+      "latitude": "12.97160000",
+      "longitude": "77.59456000",
+      "aliases": ["Bangalore"]
+    },
+    {
+      "id": 2,
+      "name": "Chennai",
+      "state_name": "Tamil Nadu",
+      "state_code": "TN",
+      "country_name": "India",
+      "country_code": "IN",
+      "latitude": "13.08784000",
+      "longitude": "80.27847000",
+      "aliases": ["Madras"]
+    },
+    {
+      "id": 3,
+      "name": "Hyderabad",
+      "state_name": "Telangana",
+      "state_code": "TG",
+      "country_name": "India",
+      "country_code": "IN",
+      "latitude": "17.38405000",
+      "longitude": "78.45636000",
+      "aliases": []
+    },
+    {
+      "id": 4,
+      "name": "Mumbai",
+      "state_name": "Maharashtra",
+      "state_code": "MH",
+      "country_name": "India",
+      "country_code": "IN",
+      "latitude": "19.07283000",
+      "longitude": "72.88261000",
+      "aliases": ["Bombay"]
+    },
+    {
+      "id": 5,
+      "name": "Pune",
+      "state_name": "Maharashtra",
+      "state_code": "MH",
+      "country_name": "India",
+      "country_code": "IN",
+      "latitude": "18.52043000",
+      "longitude": "73.85674000",
+      "aliases": ["Poona"]
+    },
+    {
+      "id": 6,
+      "name": "New Delhi",
+      "state_name": "Delhi",
+      "state_code": "DL",
+      "country_name": "India",
+      "country_code": "IN",
+      "latitude": "28.61394000",
+      "longitude": "77.20902000",
+      "aliases": ["Delhi", "NCR"]
+    },
+    {
+      "id": 7,
+      "name": "Kolkata",
+      "state_name": "West Bengal",
+      "state_code": "WB",
+      "country_name": "India",
+      "country_code": "IN",
+      "latitude": "22.57265000",
+      "longitude": "88.36389000",
+      "aliases": ["Calcutta"]
+    },
+    {
+      "id": 8,
+      "name": "Noida",
+      "state_name": "Uttar Pradesh",
+      "state_code": "UP",
+      "country_name": "India",
+      "country_code": "IN",
+      "latitude": "28.58080000",
+      "longitude": "77.32500000",
+      "aliases": []
+    },
+    {
+      "id": 9,
+      "name": "Gurgaon",
+      "state_name": "Haryana",
+      "state_code": "HR",
+      "country_name": "India",
+      "country_code": "IN",
+      "latitude": "28.45950000",
+      "longitude": "77.02673000",
+      "aliases": ["Gurugram"]
+    },
+    {
+      "id": 10,
+      "name": "San Francisco",
+      "state_name": "California",
+      "state_code": "CA",
+      "country_name": "United States",
+      "country_code": "US",
+      "latitude": "37.77493000",
+      "longitude": "-122.41942000",
+      "aliases": ["SF", "SFO"]
+    },
+    {
+      "id": 11,
+      "name": "New York",
+      "state_name": "New York",
+      "state_code": "NY",
+      "country_name": "United States",
+      "country_code": "US",
+      "latitude": "40.71427000",
+      "longitude": "-74.00597000",
+      "aliases": ["NYC", "New York City"]
+    },
+    {
+      "id": 12,
+      "name": "Seattle",
+      "state_name": "Washington",
+      "state_code": "WA",
+      "country_name": "United States",
+      "country_code": "US",
+      "latitude": "47.60621000",
+      "longitude": "-122.33207000",
+      "aliases": []
+    },
+    {
+      "id": 13,
+      "name": "Austin",
+      "state_name": "Texas",
+      "state_code": "TX",
+      "country_name": "United States",
+      "country_code": "US",
+      "latitude": "30.26715000",
+      "longitude": "-97.74306000",
+      "aliases": []
+    },
+    {
+      "id": 14,
+      "name": "Los Angeles",
+      "state_name": "California",
+      "state_code": "CA",
+      "country_name": "United States",
+      "country_code": "US",
+      "latitude": "34.05223000",
+      "longitude": "-118.24368000",
+      "aliases": ["LA"]
+    },
+    {
+      "id": 15,
+      "name": "London",
+      "state_name": "England",
+      "state_code": "ENG",
+      "country_name": "United Kingdom",
+      "country_code": "GB",
+      "latitude": "51.50853000",
+      "longitude": "-0.12574000",
+      "aliases": []
+    },
+    {
+      "id": 16,
+      "name": "Berlin",
+      "state_name": "Berlin",
+      "state_code": "BE",
+      "country_name": "Germany",
+      "country_code": "DE",
+      "latitude": "52.52000700",
+      "longitude": "13.40495400",
+      "aliases": []
+    },
+    {
+      "id": 17,
+      "name": "Paris",
+      "state_name": "Île-de-France",
+      "state_code": "IDF",
+      "country_name": "France",
+      "country_code": "FR",
+      "latitude": "48.85341000",
+      "longitude": "2.34880000",
+      "aliases": []
+    },
+    {
+      "id": 18,
+      "name": "Singapore",
+      "state_name": "Singapore",
+      "state_code": "SG",
+      "country_name": "Singapore",
+      "country_code": "SG",
+      "latitude": "1.28967000",
+      "longitude": "103.85007000",
+      "aliases": []
+    },
+    {
+      "id": 19,
+      "name": "Tokyo",
+      "state_name": "Tokyo",
+      "state_code": "13",
+      "country_name": "Japan",
+      "country_code": "JP",
+      "latitude": "35.68950000",
+      "longitude": "139.69171000",
+      "aliases": []
+    },
+    {
+      "id": 20,
+      "name": "Sydney",
+      "state_name": "New South Wales",
+      "state_code": "NSW",
+      "country_name": "Australia",
+      "country_code": "AU",
+      "latitude": "-33.86785000",
+      "longitude": "151.20732000",
+      "aliases": []
+    }
+  ],
+  "usage_note": "For production deployment, replace this file with the full dr5hn cities database containing 151K+ cities worldwide."
+}

@@ -1,0 +1,73 @@
+/* Gradient Utilities for GitHire */
+
+/* Primary Gradients (Indigo to Purple) */
+.gradient-primary {
+  background-image: linear-gradient(to right, #6366f1, #a855f7);
+}
+
+.gradient-primary-light {
+  background-image: linear-gradient(to right, #818cf8, #c084fc);
+}
+
+.gradient-primary-dark {
+  background-image: linear-gradient(to right, #4f46e5, #9333ea);
+}
+
+/* Text gradients */
+.text-gradient-primary {
+  background-image: linear-gradient(to right, #6366f1, #a855f7);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-secondary {
+  background-image: linear-gradient(to right, #14b8a6, #06b6d4);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-accent {
+  background-image: linear-gradient(to right, #f59e0b, #f97316);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Success Gradient (Emerald to Teal) */
+.gradient-success {
+  background-image: linear-gradient(to right, #10b981, #14b8a6);
+}
+
+/* Warning/Accent Gradient (Amber to Orange) */
+.gradient-accent {
+  background-image: linear-gradient(to right, #f59e0b, #f97316);
+}
+
+/* Radial gradients for backgrounds */
+.bg-radial-primary {
+  background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.1), transparent 50%);
+}
+
+.bg-radial-secondary {
+  background: radial-gradient(circle at bottom left, rgba(20, 184, 166, 0.1), transparent 50%);
+}
+
+/* Mesh gradient backgrounds */
+.mesh-gradient {
+  background:
+    radial-gradient(at 40% 20%, rgba(99, 102, 241, 0.3) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, rgba(168, 85, 247, 0.3) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, rgba(20, 184, 166, 0.2) 0px, transparent 50%),
+    radial-gradient(at 80% 50%, rgba(251, 191, 36, 0.2) 0px, transparent 50%);
+}
+
+/* Hero gradient overlay */
+.hero-gradient {
+  background-image: linear-gradient(to bottom right, #6366f1, #a855f7, #4f46e5);
+}
+
+.hero-gradient-overlay {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.95), rgba(168, 85, 247, 0.95));
+}

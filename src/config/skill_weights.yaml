@@ -1,0 +1,89 @@
+# Skill Detection Weights Configuration
+# ==========================================================================
+# This file configures the multi-signal ensemble scoring for library-level
+# skills detection (e.g., pandas, numpy, React, Express)
+#
+# IMPORTANT: Do not hardcode these values in code. All weights should be
+# loaded from this configuration file to enable A/B testing and optimization.
+# ==========================================================================
+
+# Primary Detection Method (Dependency Graph API)
+# When available, this provides 80-85% accuracy
+primary_method:
+  name: "dependency_graph"
+  weight: 0.50  # 50% weight when available
+  enabled: true
+  retry_attempts: 3  # Retry on 502/503 errors
+  timeout_seconds: 10
+
+# Fallback Ensemble Weights (when Dependency Graph fails or unavailable)
+# Combined accuracy: 70-75%
+fallback_weights:
+  repository_topics: 0.35      # User-tagged topics (high precision, low recall)
+  repository_languages: 0.25   # Primary language detection
+  repository_names: 0.15       # Skill keywords in repo names
+  bio_starred_repos: 0.15      # Bio text + starred repositories
+  commit_messages: 0.10        # Optional: analyze commit messages for keywords
+
+# Confidence Thresholds
+# Minimum confidence score (0.0-1.0) required to consider a skill "detected"
+confidence_thresholds:
+  minimum: 0.50      # Below this, skill is not included
+  high: 0.80         # Above this, considered "highly confident"
+  expert: 0.90       # Above this, considered "expert level"
+
+# Signal-Specific Configuration
+signals:
+  repository_topics:
+    min_repos_with_topic: 2       # At least 2 repos must have the topic
+    weight_per_repo: 0.10          # Each additional repo adds 10%
+    max_contribution: 0.35         # Cap at 35% total
+
+  repository_languages:
+    percentage_threshold: 0.30     # At least 30% of repos in that language
+    weight_per_10_percent: 0.05    # Each 10% adds 5% confidence
+
+  repository_names:
+    exact_match_bonus: 0.10        # Exact skill name in repo name
+    partial_match: 0.05            # Partial match (e.g., "react" in "my-react-app")
+    case_insensitive: true
+
+  bio_starred_repos:
+    bio_keyword_weight: 0.10       # Skill mentioned in bio
+    starred_repos_threshold: 5     # At least 5 starred repos with skill
+    weight_per_starred: 0.02       # Each starred repo adds 2%
+
+  commit_messages:
+    enabled: false                 # Disabled by default (performance cost)
+    sample_size: 100               # Analyze last 100 commits
+    keyword_match_weight: 0.02     # Each commit mentioning skill
+
+# Skill Normalization
+# Map variations of skill names to canonical forms
+# (More comprehensive mappings in skill_aliases.json)
+quick_normalizations:
+  "react.js": "React"
+  "reactjs": "React"
+  "react-native": "React Native"
+  "nodejs": "Node.js"
+  "node": "Node.js"
+  "typescript": "TypeScript"
+  "ts": "TypeScript"
+  "javascript": "JavaScript"
+  "js": "JavaScript"
+  "python3": "Python"
+  "py": "Python"
+
+# Performance Configuration
+performance:
+  max_repos_to_analyze: 100      # Limit repo analysis for performance
+  parallel_profile_enrichment: true
+  batch_size: 50                 # GraphQL batch size for profile enrichment
+  cache_ttl_seconds: 3600        # 1 hour cache for profiles
+
+# Monitoring & Alerts
+monitoring:
+  log_confidence_scores: true
+  log_signal_contributions: true
+  alert_on_low_accuracy: true
+  accuracy_threshold: 0.60       # Alert if overall accuracy drops below 60%

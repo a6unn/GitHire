@@ -1,0 +1,39 @@
+# Noreply Email Patterns Configuration
+# Contact Enrichment Module - Module 010
+# Purpose: Filter privacy-protected email addresses that users have chosen to hide
+
+# GitHub noreply patterns (most common)
+github_noreply:
+  - "noreply.github.com"
+  - "users.noreply.github.com"
+  - "@users.noreply"
+
+# Generic noreply patterns
+generic_noreply:
+  - "no-reply"
+  - "noreply@"
+  - "no_reply"
+  - "donotreply"
+  - "do-not-reply"
+  - "do_not_reply"
+
+# GitLab noreply patterns
+gitlab_noreply:
+  - "noreply.gitlab.com"
+
+# Bitbucket noreply patterns
+bitbucket_noreply:
+  - "noreply.bitbucket.org"
+
+# Automated/system emails (non-personal)
+automated:
+  - "notifications@"
+  - "no.reply@"
+  - "automated@"
+  - "system@"
+  - "mailer-daemon@"
+
+# Configuration metadata
+version: "1.0.0"
+last_updated: "2025-10-10"
+description: "Privacy-protected email patterns to exclude from contact enrichment"
