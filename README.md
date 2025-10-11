@@ -1,4 +1,4 @@
-# GitHire
+# GitHire 
 
 <div align="center">
 
@@ -371,7 +371,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ⭐ Star us on GitHub if you find this project helpful!
 
-[Website](https://ideas2it.com.com) • [Documentation](./docs) • [API Docs](http://localhost:8000/docs)
+[Website](https://ideas2it.com) • [Documentation](./docs) • [API Docs](http://localhost:8000/docs)
 
 </div>
 
