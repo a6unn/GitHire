@@ -1,6 +1,7 @@
 """FastAPI application entry point."""
 
 import logging
+import os
 import time
 import uuid
 from contextlib import asynccontextmanager
@@ -32,6 +33,15 @@ async def lifespan(app: FastAPI):
     """
     # Startup: Initialize database
     await init_db()
+
+    # Debug: Log environment variable status for API keys
+    logger.info("=== Environment Variables Debug ===")
+    logger.info(f"OPENAI_API_KEY present: {bool(os.getenv('OPENAI_API_KEY'))}")
+    logger.info(f"ANTHROPIC_API_KEY present: {bool(os.getenv('ANTHROPIC_API_KEY'))}")
+    logger.info(f"GITHUB_TOKEN present: {bool(os.getenv('GITHUB_TOKEN'))}")
+    logger.info(f"SECRET_KEY present: {bool(os.getenv('SECRET_KEY'))}")
+    logger.info("=================================")
+
     yield
     # Shutdown: Clean up resources (if needed)
 
@@ -182,6 +192,22 @@ async def root():
         "message": "Welcome to GitHire API",
         "docs": "/docs",
         "health": "/health"
+    }
+
+
+@app.get("/debug/env")
+async def debug_environment():
+    """Debug endpoint to check environment variable status.
+
+    Returns which API keys are set (not their values for security).
+    """
+    return {
+        "openai_api_key_set": bool(os.getenv("OPENAI_API_KEY")),
+        "anthropic_api_key_set": bool(os.getenv("ANTHROPIC_API_KEY")),
+        "github_token_set": bool(os.getenv("GITHUB_TOKEN")),
+        "secret_key_set": bool(os.getenv("SECRET_KEY")),
+        "railway_environment": os.getenv("RAILWAY_ENVIRONMENT"),
+        "port": os.getenv("PORT"),
     }
 
 
