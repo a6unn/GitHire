@@ -39,6 +39,7 @@ export interface ProjectListItem {
   status: ProjectStatus;
   job_description_text: string;
   candidate_count: number;
+  avg_score: number | null;
   created_at: string;
   updated_at: string;
   pipeline_start_time: string | null;

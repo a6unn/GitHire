@@ -44,65 +44,75 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     day: 'numeric',
   });
 
-  const CardWrapper = onClick ? 'button' : Link;
-  const wrapperProps = onClick
-    ? { onClick, type: 'button' as const }
-    : { to: `/projects/${id}` };
+  const cardContent = (
+    <Card variant="interactive" padding="lg" className="h-full">
+      <div className="flex flex-col h-full">
+        {/* Header */}
+        <div className="flex items-start justify-between gap-3 mb-3">
+          <h3 className="text-lg font-semibold text-gray-900 flex-1 line-clamp-2">
+            {title}
+          </h3>
+          <Badge variant={statusInfo.variant} size="sm" pill>
+            {statusInfo.label}
+          </Badge>
+        </div>
 
-  return (
-    <CardWrapper
-      {...wrapperProps}
-      className={clsx(
-        'block w-full text-left',
-        onClick && 'cursor-pointer',
-        className
-      )}
-    >
-      <Card variant="interactive" padding="lg" className="h-full">
-        <div className="flex flex-col h-full">
-          {/* Header */}
-          <div className="flex items-start justify-between gap-3 mb-3">
-            <h3 className="text-lg font-semibold text-gray-900 flex-1 line-clamp-2">
-              {title}
-            </h3>
-            <Badge variant={statusInfo.variant} size="sm" pill>
-              {statusInfo.label}
-            </Badge>
-          </div>
+        {/* Description */}
+        {description && (
+          <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+            {description}
+          </p>
+        )}
 
-          {/* Description */}
-          {description && (
-            <p className="text-sm text-gray-600 mb-4 line-clamp-2">
-              {description}
-            </p>
-          )}
-
-          {/* Stats */}
-          <div className="mt-auto space-y-2">
-            <div className="flex flex-wrap gap-4 text-sm text-gray-500">
-              <div className="flex items-center gap-1">
-                <CalendarIcon className="h-4 w-4" />
-                <span>{formattedDate}</span>
-              </div>
-
-              {candidatesCount !== undefined && (
-                <div className="flex items-center gap-1">
-                  <UserGroupIcon className="h-4 w-4" />
-                  <span>{candidatesCount} candidates</span>
-                </div>
-              )}
-
-              {avgScore !== undefined && (
-                <div className="flex items-center gap-1">
-                  <ChartBarIcon className="h-4 w-4" />
-                  <span>Avg: {avgScore}%</span>
-                </div>
-              )}
+        {/* Stats */}
+        <div className="mt-auto space-y-2">
+          <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+            <div className="flex items-center gap-1">
+              <CalendarIcon className="h-4 w-4" />
+              <span>{formattedDate}</span>
             </div>
+
+            {candidatesCount !== undefined && (
+              <div className="flex items-center gap-1">
+                <UserGroupIcon className="h-4 w-4" />
+                <span>{candidatesCount} candidates</span>
+              </div>
+            )}
+
+            {avgScore !== undefined && avgScore !== null && (
+              <div className="flex items-center gap-1">
+                <ChartBarIcon className="h-4 w-4" />
+                <span>Avg: {avgScore}%</span>
+              </div>
+            )}
           </div>
         </div>
-      </Card>
-    </CardWrapper>
+      </div>
+    </Card>
+  );
+
+  if (onClick) {
+    return (
+      <button
+        onClick={onClick}
+        type="button"
+        className={clsx(
+          'block w-full text-left cursor-pointer',
+          className
+        )}
+      >
+        {cardContent}
+      </button>
+    );
+  }
+
+  return (
+    <Link
+      to={`/projects/${id}`}
+      className={clsx('block w-full text-left', className)}
+    >
+      {cardContent}
+    </Link>
   );
 };
 

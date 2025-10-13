@@ -4,18 +4,9 @@
  * These types correspond to the Pydantic models in src/outreach_generator/models.py
  */
 
-export enum ChannelType {
-  EMAIL = 'email',
-  LINKEDIN = 'linkedin',
-  TWITTER = 'twitter',
-}
+export type ChannelType = 'email' | 'linkedin' | 'twitter';
 
-export enum FollowUpAngle {
-  REMINDER = 'reminder',
-  TECHNICAL_CHALLENGE = 'technical_challenge',
-  CAREER_GROWTH = 'career_growth',
-  SOFT_CLOSE = 'soft_close',
-}
+export type FollowUpAngle = 'reminder' | 'technical_challenge' | 'career_growth' | 'soft_close';
 
 export interface PersonalizationMetadata {
   referenced_repositories: string[];
@@ -32,10 +23,12 @@ export interface PersonalizationMetadata {
 }
 
 export interface OutreachMessage {
+  outreach_id: string;
   shortlist_id: string;
   channel: ChannelType;
   subject_line: string | null;
   message_text: string;
+  edited_message: string | null;
   personalization_score: number; // 0-100
   personalization_metadata: PersonalizationMetadata;
   tokens_used: number;

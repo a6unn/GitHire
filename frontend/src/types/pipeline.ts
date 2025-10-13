@@ -15,7 +15,13 @@ export interface Candidate {
 
 export interface RankedCandidate {
   github_username: string;
+  name: string | null;
+  bio: string | null;
+  location: string | null;
+  followers: number;
+  public_repos: number;
   total_score: number;
+  score: number; // Alias for total_score for backward compatibility
   rank: number;
   domain_score: number;
   score_breakdown: {
@@ -26,6 +32,7 @@ export interface RankedCandidate {
     missing_skills?: string[];
     [key: string]: number | string[] | undefined;
   };
+  matched_skills: string[]; // Convenience field for direct access
   strengths: string[];
   concerns: string[];
 }

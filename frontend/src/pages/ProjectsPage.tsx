@@ -228,7 +228,7 @@ export const ProjectsPage: React.FC = () => {
                 status={mapProjectStatus(project.status)}
                 createdAt={project.created_at}
                 candidatesCount={project.candidate_count}
-                avgScore={project.avg_score}
+                avgScore={project.avg_score ?? undefined}
               />
             </div>
           ))}

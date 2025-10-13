@@ -163,7 +163,7 @@ export const DashboardPage: React.FC = () => {
                   status={project.status as 'active' | 'completed' | 'draft'}
                   createdAt={project.created_at}
                   candidatesCount={project.candidate_count}
-                  avgScore={project.avg_score}
+                  avgScore={project.avg_score ?? undefined}
                 />
               </div>
             ))}
