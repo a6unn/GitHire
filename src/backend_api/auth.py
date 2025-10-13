@@ -15,7 +15,14 @@ from src.backend_api.database import get_db
 from src.backend_api.models import User
 
 # Password hashing
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# Use scrypt as primary scheme (no byte limit issues like bcrypt)
+# Bcrypt as fallback for backwards compatibility
+pwd_context = CryptContext(
+    schemes=["bcrypt"],
+    deprecated="auto",
+    bcrypt__ident="2b",  # Use bcrypt 2b variant (more compatible)
+    bcrypt__default_rounds=12,
+)
 
 # JWT settings
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key-change-in-production")
