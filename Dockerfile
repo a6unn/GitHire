@@ -49,15 +49,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Create non-root user for security (do this early)
 RUN useradd -m -u 1000 githire
 
-# Copy Python packages from builder (includes installed githire package)
+# Copy Python packages from builder (includes installed dependencies)
 COPY --from=builder --chown=githire:githire /root/.local /home/githire/.local
 
-# Copy only config files needed at runtime
+# Copy source code (needed for src.* imports)
+COPY --chown=githire:githire src/ ./src/
+
+# Copy config files needed at runtime
 COPY --chown=githire:githire .env.example .env.example
 
 # Create necessary directories
 RUN mkdir -p /app/data /app/logs && \
     chown -R githire:githire /app
+
+# Set PYTHONPATH so Python can find src modules
+ENV PYTHONPATH=/app
 
 # Switch to non-root user
 USER githire
