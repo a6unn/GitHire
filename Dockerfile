@@ -55,6 +55,16 @@ COPY --from=builder --chown=githire:githire /root/.local /home/githire/.local
 # Copy source code (needed for src.* imports)
 COPY --chown=githire:githire src/ ./src/
 
+# Debug: Verify lib directories were copied
+RUN echo "=== Checking if lib directories exist ===" && \
+    ls -la /app/src/ && \
+    echo "=== github_sourcer contents ===" && \
+    ls -la /app/src/github_sourcer/ && \
+    echo "=== github_sourcer/lib contents ===" && \
+    ls -la /app/src/github_sourcer/lib/ && \
+    echo "=== contact_enrichment/lib contents ===" && \
+    ls -la /app/src/contact_enrichment/lib/ || echo "lib directory missing!"
+
 # Copy config files needed at runtime
 COPY --chown=githire:githire .env.example .env.example
 
