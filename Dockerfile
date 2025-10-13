@@ -35,7 +35,7 @@ FROM python:3.11-slim
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PATH=/root/.local/bin:$PATH
+    PATH=/home/githire/.local/bin:$PATH
 
 # Set working directory
 WORKDIR /app
@@ -45,18 +45,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy Python packages from builder
-COPY --from=builder /root/.local /root/.local
+# Create non-root user for security (do this early)
+RUN useradd -m -u 1000 githire
+
+# Copy Python packages from builder to githire user's home
+COPY --from=builder --chown=githire:githire /root/.local /home/githire/.local
 
 # Copy application code
-COPY src/ ./src/
-COPY .env.example .env.example
+COPY --chown=githire:githire src/ ./src/
+COPY --chown=githire:githire .env.example .env.example
 
 # Create necessary directories
-RUN mkdir -p /app/data /app/logs
-
-# Create non-root user for security
-RUN useradd -m -u 1000 githire && \
+RUN mkdir -p /app/data /app/logs && \
     chown -R githire:githire /app
 
 # Switch to non-root user
