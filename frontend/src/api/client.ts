@@ -1,8 +1,11 @@
 import axios from 'axios';
 
+// Get API URL from environment variable or fallback to relative path for local dev
+const API_URL = import.meta.env.VITE_API_URL || '/api';
+
 // Create axios instance with default config
 const apiClient = axios.create({
-  baseURL: '/api',
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
