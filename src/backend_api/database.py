@@ -9,7 +9,10 @@ from sqlalchemy.pool import StaticPool
 from .models import Base
 
 # Database configuration
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite+aiosqlite:///./githire.db")
+# Use in-memory SQLite if DATABASE_URL not provided (good for cloud deployments)
+# For production, set DATABASE_URL to a PostgreSQL connection string
+DEFAULT_DB = "sqlite+aiosqlite:///:memory:" if os.getenv("RAILWAY_ENVIRONMENT") else "sqlite+aiosqlite:///./githire.db"
+DATABASE_URL = os.getenv("DATABASE_URL", DEFAULT_DB)
 
 # Create async engine
 # For SQLite, use StaticPool to share single connection across async tasks

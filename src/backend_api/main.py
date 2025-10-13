@@ -45,12 +45,14 @@ app = FastAPI(
 )
 
 # Add CORS middleware (allow all origins for MVP)
+# Note: In production, replace "*" with specific allowed origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  # Allows all origins - replace with specific domains in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 
