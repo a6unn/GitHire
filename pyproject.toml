@@ -41,13 +41,6 @@ classifiers = [
     "Typing :: Typed",
 ]
 
-[project.urls]
-Homepage = "https://github.com/a6unn/GitHire"
-Documentation = "https://github.com/a6unn/GitHire/tree/main/docs"
-Repository = "https://github.com/a6unn/GitHire"
-"Bug Tracker" = "https://github.com/a6unn/GitHire/issues"
-Changelog = "https://github.com/a6unn/GitHire/blob/main/CHANGELOG.md"
-
 dependencies = [
     # Module 001: JD Parser
     "openai>=1.0.0",
@@ -75,6 +68,13 @@ dependencies = [
     "pydantic>=2.0.0",
     "python-dotenv>=1.0.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/a6unn/GitHire"
+Documentation = "https://github.com/a6unn/GitHire/tree/main/docs"
+Repository = "https://github.com/a6unn/GitHire"
+"Bug Tracker" = "https://github.com/a6unn/GitHire/issues"
+Changelog = "https://github.com/a6unn/GitHire/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 dev = [
