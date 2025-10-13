@@ -9,10 +9,23 @@ from sqlalchemy.pool import StaticPool
 from .models import Base
 
 # Database configuration
-# Use in-memory SQLite if DATABASE_URL not provided (good for cloud deployments)
-# For production, set DATABASE_URL to a PostgreSQL connection string
-DEFAULT_DB = "sqlite+aiosqlite:///:memory:" if os.getenv("RAILWAY_ENVIRONMENT") else "sqlite+aiosqlite:///./githire.db"
+# Check if running in production (Railway, Vercel, etc.) by checking common env vars
+IS_PRODUCTION = any([
+    os.getenv("RAILWAY_ENVIRONMENT"),
+    os.getenv("RAILWAY_PROJECT_ID"),
+    os.getenv("PORT"),  # Railway sets this
+    os.getenv("VERCEL"),
+])
+
+# Use in-memory SQLite for production deployments (ephemeral filesystem)
+# For local development, use file-based SQLite
+DEFAULT_DB = "sqlite+aiosqlite:///:memory:" if IS_PRODUCTION else "sqlite+aiosqlite:///./githire.db"
 DATABASE_URL = os.getenv("DATABASE_URL", DEFAULT_DB)
+
+# Log database configuration on startup
+import logging
+logger = logging.getLogger(__name__)
+logger.info(f"Database configuration: IS_PRODUCTION={IS_PRODUCTION}, DATABASE_URL={DATABASE_URL.split('://')[0]}://***")
 
 # Create async engine
 # For SQLite, use StaticPool to share single connection across async tasks
