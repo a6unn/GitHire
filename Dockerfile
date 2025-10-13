@@ -27,8 +27,8 @@ FROM base AS builder
 COPY pyproject.toml ./
 COPY src/ ./src/
 
-# Install Python dependencies (editable install needs source code)
-RUN pip install --user --no-warn-script-location -e .
+# Install Python dependencies (regular install, not editable for Docker)
+RUN pip install --user --no-warn-script-location .
 
 # Stage 3: Final runtime stage
 FROM python:3.11-slim
@@ -49,17 +49,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Create non-root user for security (do this early)
 RUN useradd -m -u 1000 githire
 
-# Copy Python packages from builder to githire user's home
+# Copy Python packages from builder (includes installed githire package)
 COPY --from=builder --chown=githire:githire /root/.local /home/githire/.local
 
-# Copy application code and config files
-COPY --chown=githire:githire src/ ./src/
+# Copy only config files needed at runtime
 COPY --chown=githire:githire .env.example .env.example
-
-# Verify critical directories exist
-RUN ls -la /app/src/ && \
-    ls -la /app/src/github_sourcer/ && \
-    ls -la /app/src/github_sourcer/lib/ || echo "lib directory missing!"
 
 # Create necessary directories
 RUN mkdir -p /app/data /app/logs && \
