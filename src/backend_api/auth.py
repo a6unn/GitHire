@@ -15,13 +15,10 @@ from src.backend_api.database import get_db
 from src.backend_api.models import User
 
 # Password hashing
-# Use scrypt as primary scheme (no byte limit issues like bcrypt)
-# Bcrypt as fallback for backwards compatibility
+# Use argon2 (modern, secure, no byte limit issues)
 pwd_context = CryptContext(
-    schemes=["bcrypt"],
+    schemes=["argon2", "bcrypt"],  # argon2 primary, bcrypt for legacy support
     deprecated="auto",
-    bcrypt__ident="2b",  # Use bcrypt 2b variant (more compatible)
-    bcrypt__default_rounds=12,
 )
 
 # JWT settings
@@ -31,7 +28,7 @@ ACCESS_TOKEN_EXPIRE_HOURS = 24
 
 
 def hash_password(password: str) -> str:
-    """Hash a plain text password using bcrypt.
+    """Hash a plain text password using argon2.
 
     Args:
         password: Plain text password
@@ -40,15 +37,9 @@ def hash_password(password: str) -> str:
         Hashed password string
 
     Note:
-        Bcrypt has a 72-byte limit. Passwords are truncated to 72 bytes
-        before hashing to avoid errors with long passwords.
+        Uses argon2 which has no length limits and is more secure than bcrypt.
     """
-    # Bcrypt has a 72-byte limit - truncate if necessary
-    # Encode to UTF-8 bytes and take first 72 bytes
-    password_bytes = password.encode('utf-8')[:72]
-    # Decode back to string (should always work since we're using valid UTF-8 input)
-    truncated_password = password_bytes.decode('utf-8', errors='ignore')
-    return pwd_context.hash(truncated_password)
+    return pwd_context.hash(password)
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
@@ -60,14 +51,8 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
     Returns:
         True if password matches, False otherwise
-
-    Note:
-        Must apply same 72-byte truncation as hash_password for consistency.
     """
-    # Apply same truncation as in hash_password
-    password_bytes = plain_password.encode('utf-8')[:72]
-    truncated_password = password_bytes.decode('utf-8', errors='ignore')
-    return pwd_context.verify(truncated_password, hashed_password)
+    return pwd_context.verify(plain_password, hashed_password)
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
