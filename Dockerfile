@@ -23,10 +23,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Stage 2: Builder stage for installing Python packages
 FROM base AS builder
 
-# Copy only requirements-related files first for better caching
+# Copy pyproject.toml and source code for installation
 COPY pyproject.toml ./
+COPY src/ ./src/
 
-# Install Python dependencies
+# Install Python dependencies (editable install needs source code)
 RUN pip install --user --no-warn-script-location -e .
 
 # Stage 3: Final runtime stage
@@ -51,9 +52,14 @@ RUN useradd -m -u 1000 githire
 # Copy Python packages from builder to githire user's home
 COPY --from=builder --chown=githire:githire /root/.local /home/githire/.local
 
-# Copy application code
+# Copy application code and config files
 COPY --chown=githire:githire src/ ./src/
 COPY --chown=githire:githire .env.example .env.example
+
+# Verify critical directories exist
+RUN ls -la /app/src/ && \
+    ls -la /app/src/github_sourcer/ && \
+    ls -la /app/src/github_sourcer/lib/ || echo "lib directory missing!"
 
 # Create necessary directories
 RUN mkdir -p /app/data /app/logs && \
