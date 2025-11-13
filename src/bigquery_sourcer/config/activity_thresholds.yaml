@@ -1,0 +1,57 @@
+# Activity Thresholds Configuration
+# Defines minimum activity levels and date ranges for BigQuery queries
+
+# Minimum Events
+# Threshold for considering a developer "active"
+min_events:
+  default: 10                 # Default minimum events in time period
+  junior: 5                   # Lower threshold for junior roles
+  mid_level: 10               # Standard threshold for mid-level
+  senior: 20                  # Higher threshold for senior roles
+  lead: 30                    # Highest threshold for tech leads/principals
+
+# Date Ranges (in days)
+# How far back to query GHArchive data
+date_ranges:
+  default: 30                 # Default lookback period (30 days)
+  recent: 7                   # Very recent activity (last week)
+  short: 14                   # Short-term activity (2 weeks)
+  medium: 30                  # Medium-term activity (1 month)
+  long: 90                    # Long-term activity (3 months)
+  extended: 180               # Extended activity (6 months)
+
+# Trending Detection Thresholds
+trending:
+  min_stars: 50               # Minimum stars gained to be considered "viral"
+  star_velocity_threshold: 1.0  # Minimum stars per day
+  min_viral_repos: 1          # Minimum viral repositories to qualify as trending
+  early_adopter_days: 180     # Days after repo creation to consider "early adopter"
+
+# Contribution Patterns
+patterns:
+  min_events_for_analysis: 5  # Minimum events needed to analyze patterns
+  consistency_threshold: 0.6  # Threshold for "consistent" pattern (60% of days active)
+  bursty_variance: 2.0        # Variance multiplier for "bursty" classification
+
+# Repository Diversity
+repository_diversity:
+  min_unique_repos: 2         # Minimum repositories to show diversity
+  single_repo_warning: true   # Warn if all activity in one repo
+
+# Query Limits
+query_limits:
+  max_results: 1000           # Maximum candidates before enrichment
+  trending_max_results: 500   # Maximum trending developers
+  library_max_results: 1000   # Maximum library-specific developers
+
+# Activity Quality Filters
+quality_filters:
+  exclude_bot_accounts: true  # Exclude accounts with "bot" in username
+  exclude_fork_only: false    # Exclude developers who only fork (no original work)
+  min_unique_repos: 1         # Minimum unique repositories contributed to
+
+# Notes:
+# - All thresholds can be overridden at query time
+# - Adjust based on role seniority and job requirements
+# - Lower thresholds for emerging technologies (fewer active developers)
+# - Higher thresholds for common technologies (many active developers)

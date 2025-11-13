@@ -1,0 +1,77 @@
+# Cost Limits Configuration
+# Manages BigQuery query costs and budgets
+
+# Query Cost Limits (USD)
+query_limits:
+  max_query_cost_usd: 5.0          # Maximum cost per single query
+  warning_threshold_usd: 3.0       # Show warning if estimate exceeds this
+  auto_approve_threshold_usd: 1.0  # Auto-approve queries below this cost
+
+# Monthly Budgets (USD)
+monthly_budgets:
+  global_budget: 100.0             # Global monthly budget for all queries
+  per_user_budget: 50.0            # Per-user monthly budget (if enabled)
+  per_project_budget: 20.0         # Per-project monthly budget (if enabled)
+  enable_per_user_budgets: false   # Enable per-user budget tracking
+  enable_per_project_budgets: false # Enable per-project budget tracking
+
+# Cost Tracking
+cost_tracking:
+  log_all_queries: true            # Log all queries with costs to database
+  alert_on_high_cost: true         # Send alert if query exceeds warning threshold
+  alert_email: null                # Email for cost alerts (null = disabled)
+
+# Query Optimization
+optimization:
+  require_partition_filter: true   # Require partition filter on all queries
+  max_data_scanned_gb: 200         # Maximum GB to scan per query
+  warn_on_full_scan: true          # Warn if query would scan entire table
+
+# Cache Configuration
+cache:
+  ttl_hours: 24                    # Cache query results for 24 hours
+  cache_enabled: true              # Enable result caching
+  cache_expensive_queries_only: false  # Only cache queries >$1
+  min_cost_to_cache: 0.0           # Minimum cost to cache (0 = cache all)
+
+# Billing & Reporting
+billing:
+  cost_per_tb_usd: 6.25            # BigQuery on-demand pricing (as of 2025)
+  free_tier_tb_per_month: 1.0      # Google Cloud free tier
+  track_free_tier_usage: true      # Track if free tier is exhausted
+
+# Date Range Cost Estimates (approximate GB scanned)
+# These are estimates based on typical GHArchive data size
+date_range_estimates:
+  7_days:
+    min_gb: 15
+    max_gb: 30
+    typical_cost_usd: 0.15
+  30_days:
+    min_gb: 50
+    max_gb: 100
+    typical_cost_usd: 0.50
+  90_days:
+    min_gb: 150
+    max_gb: 300
+    typical_cost_usd: 1.50
+  180_days:
+    min_gb: 300
+    max_gb: 600
+    typical_cost_usd: 3.00
+
+# Cost Optimization Recommendations
+recommendations:
+  - "Use shortest date range that meets requirements"
+  - "Apply language filters to reduce data scanned"
+  - "Use partition filters (_TABLE_SUFFIX) to avoid full scans"
+  - "Select specific columns instead of SELECT *"
+  - "Cache results for repeated queries (24h TTL)"
+  - "Run expensive queries during off-peak hours"
+  - "Review query patterns monthly to optimize costs"
+
+# Notes:
+# - Costs are estimates; actual costs may vary based on query complexity
+# - GHArchive data size grows over time; adjust estimates periodically
+# - Free tier resets monthly (1 TB processing per month)
+# - Consider reserved slots for high-volume usage
